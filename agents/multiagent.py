@@ -3,11 +3,17 @@ from typing import TypedDict, Annotated, List, Optional
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import BaseMessage, SystemMessage, HumanMessage
 from langgraph.graph import StateGraph, END, START
-from agents.config import GEMINI_API_KEY
+import os
 from  google import genai
 # --- CONFIGURATION ---
 # Replace with your actual key or load from os.environ
 # GEMINI_API_KEY = "Your-Key-Here" 
+try:
+    from agents.config import GEMINI_API_KEY
+except ImportError:
+    GEMINI_API_KEY =  os.getenv("GEMINI_API_KEY")
+
+
 MODEL="gemini-2.5-flash"
 llm = ChatGoogleGenerativeAI(model=MODEL, temperature=0,google_api_key=GEMINI_API_KEY)
 

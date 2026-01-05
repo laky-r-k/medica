@@ -11,6 +11,13 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'medica.settings')
+try :
+    if os.getenv("HOST"):
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'medica.settings2')
+    else:  
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'medica.settings')
+except Exception as e:
+    print(f"NO HOST VARIABLE FOUND :{e}")
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'medica.settings')
 
 application = get_wsgi_application()
